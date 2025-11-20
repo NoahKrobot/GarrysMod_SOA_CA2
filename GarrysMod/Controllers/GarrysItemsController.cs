@@ -18,6 +18,7 @@ namespace GarrysMod.Controllers
         public GarrysItemsController(ModContext context)
         {
             _context = context;
+            context.Database.EnsureCreated();
         }
 
         // GET: api/GarrysItems
