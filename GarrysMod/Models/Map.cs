@@ -13,6 +13,5 @@
 
         public ICollection<Creator> Creators { get; set; }  = new List<Creator>();
 
-
     }
 }
