@@ -15,7 +15,7 @@
         //public ICollection<Map> Maps { get; set; } =  new List<Map>();
 
         public int CategoryId { get; set; }
-        public Category? Categories { get; set; }
+        public Category? Category { get; set; }
 
     }
 }

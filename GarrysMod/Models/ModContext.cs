@@ -8,12 +8,10 @@ namespace GarrysMod.Models
         // One Creator -> many items
         // One Category -> many items
 
-
-
-        public DbSet<GarrysItem> Items { get; set; } = null;
-        public DbSet<Creator> Creators { get; set; } = null;
-        public DbSet<Map> Maps { get; set; } = null;
-        public DbSet<Category> Categories { get; set; } = null;
+        public DbSet<GarrysItem> Items { get; set; }
+        public DbSet<Creator> Creators { get; set; }
+        public DbSet<Map> Maps { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         public ModContext(DbContextOptions<ModContext> options): base(options) { }
 

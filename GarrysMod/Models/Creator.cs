@@ -9,6 +9,6 @@
 
         public bool IsAdmin { get; set; }
 
-        public ICollection<GarrysItem> Items { get; set; }
+        public ICollection<GarrysItem> Items { get; set; } = new List<GarrysItem>();
     }
 }
