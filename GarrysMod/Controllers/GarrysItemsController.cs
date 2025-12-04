@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
 using GarrysMod.Interfaces;
 
+using GarrysMod.DTOs;
+
 namespace GarrysMod.Controllers
 {
     [Route("api/[controller]")]
@@ -25,7 +27,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/GarrysItems
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GarrysItem>>> GetItems()
+        public async Task<ActionResult<IEnumerable<DTO_GarrysItem>>> GetItems()
         {
             var fetchedItems = await _context.GetAllItems();
             return Ok(fetchedItems);
@@ -33,7 +35,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/GarrysItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<GarrysItem>> GetGarrysItem(long id)
+        public async Task<ActionResult<DTO_GarrysItem>> GetGarrysItem(long id)
         {
             var garrysItem = await _context.GetItemById(id);
 
@@ -61,7 +63,7 @@ namespace GarrysMod.Controllers
         // POST: api/GarrysItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GarrysItem>> PostGarrysItem(GarrysItem garrysItem)
+        public async Task<ActionResult<DTO_GarrysItem>> PostGarrysItem(GarrysItem garrysItem)
         {
             var garrysItemCreated = await _context.AddItem(garrysItem);
             return Ok(garrysItemCreated);

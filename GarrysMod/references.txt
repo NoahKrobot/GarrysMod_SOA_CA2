@@ -20,3 +20,11 @@ https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-us
 
 ControllerBase.Ok Method
 https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok?view=aspnetcore-8.0
+
+
+DTOs **************
+
+https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5
+
+.include(...)
+https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager

@@ -1,6 +1,7 @@
 ﻿using GarrysMod.Interfaces;
 using GarrysMod.Models;
 using Microsoft.EntityFrameworkCore;
+using GarrysMod.DTOs;
 
 namespace GarrysMod.Services
 {
@@ -8,6 +9,22 @@ namespace GarrysMod.Services
     {
 
         private readonly ModContext _context;
+
+
+        private DTO_GarrysItem DTOMapping(GarrysItem garrysItem)
+        {
+            return new DTO_GarrysItem
+            {
+                Id = garrysItem.Id,
+                Title = garrysItem.Title,
+                Description = garrysItem.Description,
+                CreatorUserName = garrysItem.Creator.Username,
+                CreatorID = garrysItem.CreatorId,
+                MapName = garrysItem.Map.Name,
+                CategoryName = garrysItem.Category.Name
+            };
+        }
+
 
         public GarrysItemService(ModContext context)
         {
@@ -17,29 +34,47 @@ namespace GarrysMod.Services
         }
 
 
-        public async Task<IEnumerable<GarrysItem>> GetAllItems()
+        public async Task<IEnumerable<DTO_GarrysItem>> GetAllItems()
         {
-            return await _context.Items.ToListAsync();
+
+            var items = await _context.Items
+                .Include(i => i.Creator)
+                .Include(i => i.Map)
+                .Include(i => i.Category)
+                .ToListAsync();
+
+            if (items == null)
+            {
+                return null;
+            }
+
+            return items.Select(DTOMapping);
         }
 
-        public async Task<GarrysItem?> GetItemById(long id)
+        public async Task<DTO_GarrysItem> GetItemById(long id)
         {
-            var garrysItem = await _context.Items.FindAsync(id);
+            //var garrysItem = await _context.Items.FindAsync(id);
+
+            var garrysItem = await _context.Items
+              .Include(i => i.Creator)
+              .Include(i => i.Map)
+              .Include(i => i.Category).FirstOrDefaultAsync();
 
             if (garrysItem == null)
             {
                 return null;
             }
-            return garrysItem;
+
+            return DTOMapping(garrysItem);
         }
 
 
-        public async Task<GarrysItem> AddItem(GarrysItem garrysItem)
+        public async Task<DTO_GarrysItem> AddItem(GarrysItem garrysItem)
         {
 
             _context.Items.Add(garrysItem);
             await _context.SaveChangesAsync();
-            return garrysItem;
+            return DTOMapping(garrysItem);
         }
 
         public async Task UpdateItem(long id, GarrysItem garrysItem)
@@ -56,5 +91,6 @@ namespace GarrysMod.Services
             await _context.SaveChangesAsync();
         }
 
+       
     }
 }
