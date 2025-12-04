@@ -6,40 +6,42 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
+using GarrysMod.Interfaces;
 
 namespace GarrysMod.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GarrysItemsController : ControllerBase
+    public class GarrysItemsController: ControllerBase
     {
-        private readonly ModContext _context;
+        //private readonly ModContext _context;
 
-        public GarrysItemsController(ModContext context)
+        private readonly IGarrysItem _context;
+
+        public GarrysItemsController(IGarrysItem service)
         {
-            _context = context;
-            context.Database.EnsureCreated();
+            _context = service;
         }
 
         // GET: api/GarrysItems
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GarrysItem>>> GetItems()
         {
-            return await _context.Items.ToListAsync();
+            var fetchedItems = await _context.GetAllItems();
+            return Ok(fetchedItems);
         }
 
         // GET: api/GarrysItems/5
         [HttpGet("{id}")]
         public async Task<ActionResult<GarrysItem>> GetGarrysItem(long id)
         {
-            var garrysItem = await _context.Items.FindAsync(id);
+            var garrysItem = await _context.GetItemById(id);
 
             if (garrysItem == null)
             {
                 return NotFound();
             }
-
-            return garrysItem;
+            return Ok(garrysItem);
         }
 
         // PUT: api/GarrysItems/5
@@ -47,30 +49,13 @@ namespace GarrysMod.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutGarrysItem(long id, GarrysItem garrysItem)
         {
-            if (id != garrysItem.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(garrysItem).State = EntityState.Modified;
-
-            try
+            if (id == garrysItem.Id)
             {
-                await _context.SaveChangesAsync();
+                await _context.AddItem(garrysItem);
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GarrysItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return BadRequest();
         }
 
         // POST: api/GarrysItems
@@ -78,31 +63,16 @@ namespace GarrysMod.Controllers
         [HttpPost]
         public async Task<ActionResult<GarrysItem>> PostGarrysItem(GarrysItem garrysItem)
         {
-            _context.Items.Add(garrysItem);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetGarrysItem), new { id = garrysItem.Id }, garrysItem);
+            var garrysItemCreated = await _context.AddItem(garrysItem);
+            return Ok(garrysItemCreated);
         }
 
         // DELETE: api/GarrysItems/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGarrysItem(long id)
         {
-            var garrysItem = await _context.Items.FindAsync(id);
-            if (garrysItem == null)
-            {
-                return NotFound();
-            }
-
-            _context.Items.Remove(garrysItem);
-            await _context.SaveChangesAsync();
-
+            await _context.DeleteItem(id);  
             return NoContent();
-        }
-
-        private bool GarrysItemExists(long id)
-        {
-            return _context.Items.Any(e => e.Id == id);
         }
     }
 }

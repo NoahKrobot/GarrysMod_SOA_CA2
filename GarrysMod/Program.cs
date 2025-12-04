@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
 using Microsoft.Extensions.Configuration;
 using System;
+using GarrysMod.Interfaces;
+using GarrysMod.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,8 @@ builder.Services.AddDbContext<ModContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IGarrysItem, GarrysItemService>();
+
 
 var app = builder.Build();
 
