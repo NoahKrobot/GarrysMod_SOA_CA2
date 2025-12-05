@@ -7,8 +7,8 @@ namespace GarrysMod.Interfaces
     {
         Task<IEnumerable<DTO_Category>> GetAllCategories();
         Task<DTO_Category?> GetCategoryById(long id);
-        Task<DTO_Category> AddCategory(Category category);
-        Task UpdateCategory(long id, Category category);
+        Task<DTO_Category> AddCategory(DTO_Category category);
+        Task UpdateCategory(long id, DTO_Category category);
         Task DeleteCategory(long id);
     }
 }

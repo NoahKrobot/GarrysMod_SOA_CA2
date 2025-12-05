@@ -48,9 +48,9 @@ namespace GarrysMod.Controllers
         // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> PutCategory(int id, DTO_Category category)
         {
-            if (id == category.Id)
+            if (id == category.ID)
             {
                 await _context.UpdateCategory(id,category);
                 return NoContent();
@@ -61,7 +61,7 @@ namespace GarrysMod.Controllers
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DTO_Category>> PostCategory(Category category)
+        public async Task<ActionResult<DTO_Category>> PostCategory(DTO_Category category)
         {
             var categoryCreated = await _context.AddCategory(category);
             return Ok(categoryCreated);

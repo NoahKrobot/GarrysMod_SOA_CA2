@@ -16,7 +16,7 @@ namespace GarrysMod.Services
             {
                 ID = category.Id,
                 Name = category.Name,
-                PopulatiryMeter = category.PopularityMeter,
+                PopularityMeter = category.PopularityMeter,
             };
         }
 
@@ -51,14 +51,23 @@ namespace GarrysMod.Services
 
         }
 
-        public async Task<DTO_Category> AddCategory(Category category)
+        public async Task<DTO_Category> AddCategory(DTO_Category category)
         {
-            _context.Categories.Add(category);
+
+            var categoryObject = new Category
+            {
+                Name = category.Name,
+                PopularityMeter = category.PopularityMeter,
+                Items = null
+            };
+
+            _context.Categories.Add(categoryObject);
             await _context.SaveChangesAsync();
-            return DTOMapping(category);
+
+            return DTOMapping(categoryObject);
         }
 
-        public async Task UpdateCategory(long id, Category category)
+        public async Task UpdateCategory(long id, DTO_Category category)
         {
             _context.Entry(category).State = EntityState.Modified;
             await _context.SaveChangesAsync();

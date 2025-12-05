@@ -11,7 +11,7 @@
 
         public double SizeInMB { get; set; }
 
-        public ICollection<Creator> Creators { get; set; } = null;
+        public ICollection<Creator> Creators { get; set; } 
 
     }
 }
