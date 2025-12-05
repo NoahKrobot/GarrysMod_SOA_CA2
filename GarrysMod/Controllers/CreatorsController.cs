@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
 using GarrysMod.Interfaces;
+using GarrysMod.DTOs;
 
 namespace GarrysMod.Controllers
 {
@@ -25,7 +26,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/Creators
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Creator>>> GetCreators()
+        public async Task<ActionResult<IEnumerable<DTO_Creator>>> GetCreators()
         {
             var fetchedItems = await _context.GetAllCreators();
             return Ok(fetchedItems);
@@ -33,7 +34,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/Creators/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Creator>> GetCreator(int id)
+        public async Task<ActionResult<DTO_Creator>> GetCreator(int id)
         {
             var creator = await _context.GetCreatorById(id);
 
@@ -47,7 +48,7 @@ namespace GarrysMod.Controllers
         // PUT: api/Creators/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCreator(int id, Creator creator)
+        public async Task<IActionResult> PutCreator(int id, DTO_Creator creator)
         {
             if (id == creator.ID)
             {
@@ -60,7 +61,7 @@ namespace GarrysMod.Controllers
         // POST: api/Creators
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Creator>> PostCreator(Creator creator)
+        public async Task<ActionResult<DTO_Creator>> PostCreator(DTO_Creator creator)
         {
             var creatorCreated = await _context.AddCreator(creator);
             return Ok(creatorCreated);

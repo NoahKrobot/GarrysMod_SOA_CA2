@@ -7,8 +7,8 @@ namespace GarrysMod.Interfaces
     {
         Task<IEnumerable<DTO_Map>> GetAllMaps();
         Task<DTO_Map?> GetMapById(long id);
-        Task<DTO_Map> AddMap(Map map);
-        Task UpdateMap(long id, Map map);
+        Task<DTO_Map> AddMap(DTO_Map map);
+        Task UpdateMap(long id, DTO_Map map);
         Task DeleteMap(long id);
     }
 }

@@ -2,6 +2,7 @@
 using GarrysMod.Models;
 using Microsoft.EntityFrameworkCore;
 using GarrysMod.DTOs;
+using Humanizer;
 
 namespace GarrysMod.Services
 {
@@ -20,8 +21,8 @@ namespace GarrysMod.Services
                 Description = garrysItem.Description,
                 CreatorUserName = garrysItem.Creator?.Username ?? "No creator",
                 CreatorID = garrysItem.CreatorId,
-                MapName = garrysItem.Map?.Name ?? "No map",
-                CategoryName = garrysItem.Category?.Name ?? "No category",
+                MapID = garrysItem.MapId,
+                CategoryID = garrysItem.CategoryId
             };
         }
 
@@ -69,17 +70,33 @@ namespace GarrysMod.Services
         }
 
 
-        public async Task<DTO_GarrysItem> AddItem(GarrysItem garrysItem)
+        public async Task<DTO_GarrysItem> AddItem(DTO_GarrysItem garrysItem)
         {
+            var garrysItemObject = new GarrysItem
+            {
+                Title = garrysItem.Title,
+                Description = garrysItem.Description,
+                CreatorId = garrysItem.CreatorID,
+                MapId = garrysItem.MapID,
+                CategoryId = garrysItem.CategoryID
+            };
 
-            _context.Items.Add(garrysItem);
+
+            _context.Items.Add(garrysItemObject);
             await _context.SaveChangesAsync();
-            return DTOMapping(garrysItem);
+            return DTOMapping(garrysItemObject);
         }
 
-        public async Task UpdateItem(long id, GarrysItem garrysItem)
+        public async Task UpdateItem(long id, DTO_GarrysItem garrysItemDTO)
         {
-            _context.Entry(garrysItem).State = EntityState.Modified;
+            var garrysItemFound = await _context.Items.FindAsync(id);
+
+            garrysItemFound.Title = garrysItemDTO.Title;
+            garrysItemFound.Description = garrysItemDTO.Description;
+            garrysItemFound.CreatorId = garrysItemDTO.CreatorID;
+            garrysItemFound.MapId = garrysItemDTO.MapID;
+            garrysItemFound.CategoryId = garrysItemDTO.CategoryID;
+
             await _context.SaveChangesAsync();
         }
 

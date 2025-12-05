@@ -7,8 +7,8 @@ namespace GarrysMod.Interfaces
     {
         Task<IEnumerable<DTO_GarrysItem>> GetAllItems();
         Task<DTO_GarrysItem?> GetItemById(long id);
-        Task<DTO_GarrysItem> AddItem(GarrysItem item);
-        Task UpdateItem(long id, GarrysItem item);
+        Task<DTO_GarrysItem> AddItem(DTO_GarrysItem item);
+        Task UpdateItem(long id, DTO_GarrysItem item);
         Task DeleteItem(long id);
     }
 }

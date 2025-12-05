@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
 using GarrysMod.Interfaces;
+using GarrysMod.DTOs;
 
 namespace GarrysMod.Controllers
 {
@@ -25,7 +26,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/Maps
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Map>>> GetMaps()
+        public async Task<ActionResult<IEnumerable<DTO_Map>>> GetMaps()
         {
             var fetchedItems = await _context.GetAllMaps();
             return Ok(fetchedItems);
@@ -33,7 +34,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/Maps/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Map>> GetMap(int id)
+        public async Task<ActionResult<DTO_Map>> GetMap(int id)
         {
             var map = await _context.GetMapById(id);
 
@@ -47,7 +48,7 @@ namespace GarrysMod.Controllers
         // PUT: api/Maps/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMap(int id, Map map)
+        public async Task<IActionResult> PutMap(int id, DTO_Map map)
         {
             if (id == map.Id)
             {
@@ -60,7 +61,7 @@ namespace GarrysMod.Controllers
         // POST: api/Maps
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Map>> PostMap(Map map)
+        public async Task<ActionResult<DTO_Map>> PostMap(DTO_Map map)
         {
             var createdMap = await _context.AddMap(map);
             return Ok(createdMap);

@@ -1,6 +1,7 @@
 ﻿using GarrysMod.DTOs;
 using GarrysMod.Interfaces;
 using GarrysMod.Models;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
 namespace GarrysMod.Services
@@ -48,11 +49,19 @@ namespace GarrysMod.Services
             return DTOMapping(map);
         }
 
-        public async Task<DTO_Map> AddMap(Map map)
+        public async Task<DTO_Map> AddMap(DTO_Map map)
         {
-            _context.Maps.Add(map);
+
+            var mapObject = new Map
+            {
+                Name = map.Name,
+                Description = map.Description,
+                SizeInMB = map.SizeInMB,
+            };
+
+            _context.Maps.Add(mapObject);
             await _context.SaveChangesAsync();
-            return DTOMapping(map);
+            return DTOMapping(mapObject);
         }
 
         public async Task DeleteMap(long id)
@@ -63,9 +72,14 @@ namespace GarrysMod.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateMap(long id, Map map)
+        public async Task UpdateMap(long id, DTO_Map mapDTO)
         {
-            _context.Entry(map).State = EntityState.Modified;
+            var mapFound = await _context.Maps.FindAsync(id);
+
+            mapFound.Name = mapDTO.Name;
+            mapFound.Description = mapDTO.Description;
+            mapFound.SizeInMB = mapDTO.SizeInMB;
+
             await _context.SaveChangesAsync();
         }
     }

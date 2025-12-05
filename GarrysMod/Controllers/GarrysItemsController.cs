@@ -49,7 +49,7 @@ namespace GarrysMod.Controllers
         // PUT: api/GarrysItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGarrysItem(long id, GarrysItem garrysItem)
+        public async Task<IActionResult> PutGarrysItem(long id, DTO_GarrysItem garrysItem)
         {
 
             if (id == garrysItem.Id)
@@ -63,7 +63,7 @@ namespace GarrysMod.Controllers
         // POST: api/GarrysItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DTO_GarrysItem>> PostGarrysItem(GarrysItem garrysItem)
+        public async Task<ActionResult<DTO_GarrysItem>> PostGarrysItem(DTO_GarrysItem garrysItem)
         {
             var garrysItemCreated = await _context.AddItem(garrysItem);
             return Ok(garrysItemCreated);

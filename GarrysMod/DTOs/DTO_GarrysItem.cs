@@ -9,7 +9,7 @@ namespace GarrysMod.DTOs
         public string Description { get; set; }
         public string CreatorUserName { get; set; }
         public int CreatorID { get; set; }
-        public string MapName { get; set; }
-        public string CategoryName { get; set; }
+        public int MapID { get; set; }
+        public int CategoryID { get; set; }
     }
 }

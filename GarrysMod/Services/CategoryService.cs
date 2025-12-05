@@ -1,6 +1,7 @@
 ﻿using GarrysMod.DTOs;
 using GarrysMod.Interfaces;
 using GarrysMod.Models;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
 namespace GarrysMod.Services
@@ -67,9 +68,13 @@ namespace GarrysMod.Services
             return DTOMapping(categoryObject);
         }
 
-        public async Task UpdateCategory(long id, DTO_Category category)
+        public async Task UpdateCategory(long id, DTO_Category categoryDTO)
         {
-            _context.Entry(category).State = EntityState.Modified;
+            var categoryFound = await _context.Categories.FindAsync(id);
+          
+            categoryFound.Name = categoryDTO.Name;
+            categoryFound.PopularityMeter = categoryDTO.PopularityMeter;
+
             await _context.SaveChangesAsync();
         }
 

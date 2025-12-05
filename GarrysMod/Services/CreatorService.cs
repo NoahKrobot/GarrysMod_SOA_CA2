@@ -2,6 +2,7 @@
 using GarrysMod.Interfaces;
 using GarrysMod.Models;
 using GarrysMod.Services;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
 namespace GarrysMod.Services
@@ -54,16 +55,28 @@ namespace GarrysMod.Services
             return DTOMapping(creator);
         }
 
-        public async Task<DTO_Creator> AddCreator(Creator creator)
+        public async Task<DTO_Creator> AddCreator(DTO_Creator creator)
         {
-            _context.Creators.Add(creator);
+
+            var creatorObject = new Creator
+            {
+                Username = creator.Username,
+                IsAdmin = creator.IsAdmin,
+            };
+
+            _context.Creators.Add(creatorObject);
             await _context.SaveChangesAsync();
-            return DTOMapping(creator);
+            return DTOMapping(creatorObject);
         }
 
-        public async Task UpdateCreator(long id, Creator creator)
+        public async Task UpdateCreator(long id, DTO_Creator creatorDTO)
         {
-            _context.Entry(creator).State = EntityState.Modified;
+
+            var creatorFound = await _context.Creators.FindAsync(id);
+
+            creatorFound.Username = creatorDTO.Username;
+            creatorFound.IsAdmin = creatorDTO.IsAdmin;
+
             await _context.SaveChangesAsync();
         }
 
