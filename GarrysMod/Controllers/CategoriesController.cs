@@ -63,8 +63,8 @@ namespace GarrysMod.Controllers
         [HttpPost]
         public async Task<ActionResult<DTO_Category>> PostCategory(Category category)
         {
-            var garrysItemCreated = await _context.AddCategory(category);
-            return Ok(garrysItemCreated);
+            var categoryCreated = await _context.AddCategory(category);
+            return Ok(categoryCreated);
         }
 
         // DELETE: api/Categories/5

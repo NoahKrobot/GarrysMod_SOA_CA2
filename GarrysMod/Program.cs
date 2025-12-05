@@ -23,6 +23,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGarrysItem, GarrysItemService>();
 builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IMap, MapService>();
+builder.Services.AddScoped<ICreator, CreatorService>();
 
 
 var app = builder.Build();

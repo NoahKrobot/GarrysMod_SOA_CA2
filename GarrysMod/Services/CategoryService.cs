@@ -20,7 +20,6 @@ namespace GarrysMod.Services
             };
         }
 
-
         public CategoryService(ModContext context)
         {
             _context = context;
