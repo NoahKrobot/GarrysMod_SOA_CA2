@@ -38,10 +38,10 @@ namespace GarrysMod.Services
             var categories = await _context.Categories.ToListAsync();
             return categories.Select(DTOMapping);
         }
-        public async Task<DTO_Category?> GetCategoryById(long id)
+        public async Task<DTO_Category?> GetCategoryById(int id)
         {
 
-            var category = await _context.Categories.FirstOrDefaultAsync();
+            var category = await _context.Categories.FindAsync(id);
 
             if (category == null)
             {
@@ -68,7 +68,7 @@ namespace GarrysMod.Services
             return DTOMapping(categoryObject);
         }
 
-        public async Task UpdateCategory(long id, DTO_Category categoryDTO)
+        public async Task UpdateCategory(int id, DTO_Category categoryDTO)
         {
             var categoryFound = await _context.Categories.FindAsync(id);
           
@@ -78,7 +78,7 @@ namespace GarrysMod.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCategory(long id)
+        public async Task DeleteCategory(int id)
         {
             var category = await _context.Categories.FindAsync(id);
 

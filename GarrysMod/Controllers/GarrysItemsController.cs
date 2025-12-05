@@ -35,7 +35,7 @@ namespace GarrysMod.Controllers
 
         // GET: api/GarrysItems/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DTO_GarrysItem>> GetGarrysItem(long id)
+        public async Task<ActionResult<DTO_GarrysItem>> GetGarrysItem(int id)
         {
             var garrysItem = await _context.GetItemById(id);
 
@@ -49,7 +49,7 @@ namespace GarrysMod.Controllers
         // PUT: api/GarrysItems/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGarrysItem(long id, DTO_GarrysItem garrysItem)
+        public async Task<IActionResult> PutGarrysItem(int id, DTO_GarrysItem garrysItem)
         {
 
             if (id == garrysItem.Id)
@@ -71,7 +71,7 @@ namespace GarrysMod.Controllers
 
         // DELETE: api/GarrysItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGarrysItem(long id)
+        public async Task<IActionResult> DeleteGarrysItem(int id)
         {
             await _context.DeleteItem(id);  
             return NoContent();

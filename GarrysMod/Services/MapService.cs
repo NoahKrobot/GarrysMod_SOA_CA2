@@ -37,9 +37,9 @@ namespace GarrysMod.Services
             var maps = await _context.Maps.ToListAsync();
             return maps.Select(DTOMapping);
         }
-        public async Task<DTO_Map?> GetMapById(long id)
+        public async Task<DTO_Map?> GetMapById(int id)
         {
-            var map = await _context.Maps.FirstOrDefaultAsync();
+            var map = await _context.Maps.FindAsync(id);
 
             if (map == null)
             {
@@ -64,7 +64,7 @@ namespace GarrysMod.Services
             return DTOMapping(mapObject);
         }
 
-        public async Task DeleteMap(long id)
+        public async Task DeleteMap(int id)
         {
             var map = await _context.Maps.FindAsync(id);
 
@@ -72,7 +72,7 @@ namespace GarrysMod.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateMap(long id, DTO_Map mapDTO)
+        public async Task UpdateMap(int id, DTO_Map mapDTO)
         {
             var mapFound = await _context.Maps.FindAsync(id);
 

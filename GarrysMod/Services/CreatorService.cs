@@ -19,6 +19,7 @@ namespace GarrysMod.Services
 
                 ID = creator.ID,
                 Username = creator.Username,
+                Password = creator.Password,
                 IsAdmin = creator.IsAdmin,
             };
         }
@@ -42,10 +43,10 @@ namespace GarrysMod.Services
             return creators.Select(DTOMapping);
         }
 
-        public async Task<DTO_Creator?> GetCreatorById(long id)
+        public async Task<DTO_Creator?> GetCreatorById(int id)
         {
 
-            var creator= await _context.Creators.FirstOrDefaultAsync();
+            var creator= await _context.Creators.FindAsync(id);
 
             if (creator == null)
             {
@@ -61,6 +62,7 @@ namespace GarrysMod.Services
             var creatorObject = new Creator
             {
                 Username = creator.Username,
+                Password = creator.Password,
                 IsAdmin = creator.IsAdmin,
             };
 
@@ -69,18 +71,19 @@ namespace GarrysMod.Services
             return DTOMapping(creatorObject);
         }
 
-        public async Task UpdateCreator(long id, DTO_Creator creatorDTO)
+        public async Task UpdateCreator(int id, DTO_Creator creatorDTO)
         {
 
             var creatorFound = await _context.Creators.FindAsync(id);
 
             creatorFound.Username = creatorDTO.Username;
+            creatorFound.Password = creatorDTO.Password;
             creatorFound.IsAdmin = creatorDTO.IsAdmin;
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCreator(long id)
+        public async Task DeleteCreator(int id)
         {
             var creator = await _context.Creators.FindAsync(id);
             _context.Creators.Remove(creator);

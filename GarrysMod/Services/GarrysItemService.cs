@@ -19,7 +19,6 @@ namespace GarrysMod.Services
                 Id = garrysItem.Id,
                 Title = garrysItem.Title,
                 Description = garrysItem.Description,
-                CreatorUserName = garrysItem.Creator?.Username ?? "No creator",
                 CreatorID = garrysItem.CreatorId,
                 MapID = garrysItem.MapId,
                 CategoryID = garrysItem.CategoryId
@@ -52,14 +51,14 @@ namespace GarrysMod.Services
             return items.Select(DTOMapping);
         }
 
-        public async Task<DTO_GarrysItem> GetItemById(long id)
+        public async Task<DTO_GarrysItem> GetItemById(int id)
         {
             //var garrysItem = await _context.Items.FindAsync(id);
 
             var garrysItem = await _context.Items
               .Include(i => i.Creator)
               .Include(i => i.Map)
-              .Include(i => i.Category).FirstOrDefaultAsync();
+              .Include(i => i.Category).FirstOrDefaultAsync(i => i.Id == id);
 
             if (garrysItem == null)
             {
@@ -87,7 +86,7 @@ namespace GarrysMod.Services
             return DTOMapping(garrysItemObject);
         }
 
-        public async Task UpdateItem(long id, DTO_GarrysItem garrysItemDTO)
+        public async Task UpdateItem(int id, DTO_GarrysItem garrysItemDTO)
         {
             var garrysItemFound = await _context.Items.FindAsync(id);
 
@@ -100,7 +99,7 @@ namespace GarrysMod.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteItem(long id)
+        public async Task DeleteItem(int id)
         {
             var garrysItem = await _context.Items.FindAsync(id);
 

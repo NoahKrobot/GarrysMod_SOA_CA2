@@ -1,0 +1,1292 @@
+{
+	"info": {
+		"_postman_id": "8499968a-88d1-4fc6-b651-2da06bef454f",
+		"name": "GarrysMod_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50613496",
+		"_collection_link": "https://noahkrobot-0aa13676-7672975.postman.co/workspace/Noah-Krobot's-Workspace~2a6ded15-ac96-4123-8f36-d359fd457d1d/collection/50613496-8499968a-88d1-4fc6-b651-2da06bef454f?action=share&source=collection_link&creator=50613496"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Local",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAll",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response content type is application/json\", function () {\r",
+													"    pm.expect(pm.response.headers.get('Content-Type')).to.include(\"application/json\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response is an array with at least one element\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Validate the structure of each item in the array\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item).to.be.an('object');\r",
+													"        pm.expect(item).to.have.all.keys('id', 'title', 'description', 'creatorID', 'mapID', 'categoryID');\r",
+													"        \r",
+													"        pm.expect(item.id).to.be.a('number');\r",
+													"        pm.expect(item.title).to.be.a('string');\r",
+													"        pm.expect(item.description).to.be.a('string');\r",
+													"        pm.expect(item.creatorID).to.be.a('number');\r",
+													"        pm.expect(item.mapID).to.be.a('number');\r",
+													"        pm.expect(item.categoryID).to.be.a('number');\r",
+													"    });\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Ensure that 'id' is a non-negative integer and 'title' is a non-empty string\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item.id).to.be.a('number').and.to.be.at.least(0, \"ID should be a non-negative integer\");\r",
+													"        pm.expect(item.title).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title should not be empty\");\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/GarrysItems",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"GarrysItems"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetWithID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"// pm.test(\"Response time is less than 200ms\", function () {\r",
+													"//     pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"// });\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has required fields\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'title', 'description', 'creatorUserName', 'creatorID', 'mapName', 'categoryName');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Validate the data types of each field in the response\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.id).to.be.a('number');\r",
+													"    pm.expect(responseData.title).to.be.a('string');\r",
+													"    pm.expect(responseData.description).to.be.a('string');\r",
+													"    pm.expect(responseData.creatorUserName).to.be.a('string');\r",
+													"    pm.expect(responseData.creatorID).to.be.a('number');\r",
+													"    pm.expect(responseData.mapName).to.be.a('string');\r",
+													"    pm.expect(responseData.categoryName).to.be.a('string');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Title and description must be non-empty strings\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.title).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Title must not be empty\");\r",
+													"    pm.expect(responseData.description).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description must not be empty\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/GarrysItems/1",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"GarrysItems",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "AddItem",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"title\": \"ItemTest1\",\r\n  \"description\": \"ItemTest1\",\r\n  \"creatorUserName\": \"q\",\r\n  \"creatorID\": 1,\r\n  \"mapID\": 2,\r\n  \"categoryID\": 3\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/GarrysItems",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"GarrysItems"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "ModifyItem",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"id\": 6,\r\n    \"title\": \"ItemTest1_edited2\",\r\n    \"description\": \"\",\r\n    \"creatorID\": 1,\r\n    \"mapID\": 1,\r\n    \"categoryID\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/GarrysItems/6",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"GarrysItems",
+												"6"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DeleteItem",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Ensure that the deletion was successful by confirming that the resource no longer exists\", function () {\r",
+													"    pm.response.to.have.status(204);\r",
+													"    \r",
+													"    // Make a subsequent request to check if the resource exists\r",
+													"    pm.sendRequest(\"https://localhost:7102/api/GarrysItems/4\", function (err, res) {\r",
+													"        pm.expect(res).to.have.status(404); // Expecting a 404 Not Found status\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/GarrysItems/5",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"GarrysItems",
+												"5"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deployed",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Local",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAll",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response content type is application/json\", function () {\r",
+													"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"// pm.test(\"Validate the schema of the response object\", function () {\r",
+													"//     const responseData = pm.response.json();\r",
+													"    \r",
+													"//     pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"//     responseData.forEach(function(item) {\r",
+													"//         pm.expect(item).to.be.an('object');\r",
+													"//         pm.expect(item).to.have.all.keys('id', 'name', 'populatiryMeter');\r",
+													"//         pm.expect(item.id).to.be.a('number');\r",
+													"//         pm.expect(item.name).to.be.a('string');\r",
+													"//         pm.expect(item.populatiryMeter).to.be.a('number');\r",
+													"//     });\r",
+													"// });\r",
+													"\r",
+													"\r",
+													"pm.test(\"Each category has a valid id and name\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"    responseData.forEach(category => {\r",
+													"        pm.expect(category).to.have.property('id').that.is.a('number').and.is.at.least(0, \"Id should be a non-negative integer\");\r",
+													"        pm.expect(category).to.have.property('name').that.is.a('string').and.has.lengthOf.at.least(1, \"Name should not be empty\");\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Categories",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetWithID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has the required fields: id, name, and popularityMeter\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'name', 'popularityMeter');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													"pm.test(\"PopularityMeter is a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.have.property('popularityMeter').that.is.a('number').and.is.at.least(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Categories/8",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Categories",
+												"8"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "AddNewCategory",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response matches the expected schema\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'name', 'popularityMeter');\r",
+													"    \r",
+													"    pm.expect(responseData.id).to.be.a('number');\r",
+													"    pm.expect(responseData.name).to.be.a('string');\r",
+													"    pm.expect(responseData.popularityMeter).to.be.a('number');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Id is a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.id).to.exist;\r",
+													"    pm.expect(responseData.id).to.be.a('number').that.is.at.least(0);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"PopularityMeter is a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.have.property('popularityMeter');\r",
+													"    pm.expect(responseData.popularityMeter).to.be.a('number').and.to.be.at.least(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "text/plain",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"Ships2\",\r\n  \"popularityMeter\": 2\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Categories?Id=0&name=string&popularityMeter&items=[1]",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Categories"
+											],
+											"query": [
+												{
+													"key": "Id",
+													"value": "0"
+												},
+												{
+													"key": "name",
+													"value": "string"
+												},
+												{
+													"key": "popularityMeter",
+													"value": null
+												},
+												{
+													"key": "items",
+													"value": "[1]"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "ModifyCategory",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"id\": 8,\r\n    \"name\": \"Ships2_edited\",\r\n    \"popularityMeter\": 2\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Categories/8",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Categories",
+												"8"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DeleteCategory",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has no content\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"    pm.expect(pm.response.text()).to.be.empty;\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Categories/6",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Categories",
+												"6"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deployed",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Maps",
+			"item": [
+				{
+					"name": "Local",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAll",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response is an array with at least one element\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Validate the schema of each item in the response\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"\r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item).to.be.an('object');\r",
+													"        pm.expect(item).to.have.all.keys('id', 'name', 'description', 'sizeInMB');\r",
+													"        pm.expect(item.id).to.be.a('number');\r",
+													"        pm.expect(item.name).to.be.a('string');\r",
+													"        pm.expect(item.description).to.be.a('string');\r",
+													"        pm.expect(item.sizeInMB).to.be.a('number');\r",
+													"    });\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Each item has valid properties\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"\r",
+													"    responseData.forEach(item => {\r",
+													"        pm.expect(item).to.be.an('object');\r",
+													"        pm.expect(item.id).to.be.a('number').and.to.be.at.least(0, \"ID should be a non-negative integer\");\r",
+													"        pm.expect(item.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+													"        pm.expect(item.description).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Description should not be empty\");\r",
+													"        pm.expect(item.sizeInMB).to.be.a('number').and.to.be.at.least(0, \"SizeInMB should be a non-negative integer\");\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Maps",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Maps"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetWithID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has required fields: id, name, description, and sizeInMB\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'name', 'description', 'sizeInMB');\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validate the data types of the fields\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.id).to.be.a('number');\r",
+													"    pm.expect(responseData.name).to.be.a('string');\r",
+													"    pm.expect(responseData.description).to.be.a('string');\r",
+													"    pm.expect(responseData.sizeInMB).to.be.a('number');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Validate that the 'id' is a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Maps/7",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Maps",
+												"7"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "AddNewMap",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response content type is application/json\", function () {\r",
+													"    pm.expect(pm.response.headers.get('Content-Type')).to.include(\"application/json\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has required fields\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'name', 'description', 'sizeInMB');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"ID is a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.id).to.be.a('number').and.to.be.at.least(0);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"SizeInMB must be a non-negative integer\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.sizeInMB).to.exist.and.to.be.a('number').and.to.be.at.least(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "text/plain",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"name\": \"TestMap12_edited\",\r\n  \"description\": \"TestMap12_edited\",\r\n  \"sizeInMB\": 123\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Maps",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Maps"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "ModifyMap",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"id\": 8,\r\n     \"name\": \"TestMap12_edited\",\r\n  \"description\": \"TestMap12_edited\",\r\n  \"sizeInMB\": 123\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Maps/8",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Maps",
+												"8"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DeleteMap",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has no content\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"    pm.expect(pm.response.text()).to.be.empty;\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Maps/7",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Maps",
+												"7"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deployed",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Creators",
+			"item": [
+				{
+					"name": "Local",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAll",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response is an array with at least one element\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													"pm.test(\"Validate 'id' is a non-negative integer and 'isAdmin' is a boolean\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+													"    \r",
+													"    responseData.forEach(function(item) {\r",
+													"        pm.expect(item.id).to.be.a('number').and.to.be.at.least(0, \"id should be a non-negative integer\");\r",
+													"        pm.expect(item.isAdmin).to.be.a('boolean', \"isAdmin should be a boolean\");\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Creators",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Creators"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetWithID",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response matches the expected schema\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'username', 'isAdmin');\r",
+													"    \r",
+													"    pm.expect(responseData.id).to.be.a('number');\r",
+													"    pm.expect(responseData.username).to.be.a('string');\r",
+													"    pm.expect(responseData.isAdmin).to.be.a('boolean');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Username must be a non-empty string\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.username).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"IsAdmin should be a boolean value\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.isAdmin).to.be.a('boolean');\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Creators/1",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Creators",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "AddNewCreator",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response matches the expected schema\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData).to.have.all.keys('id', 'username', 'password', 'isAdmin');\r",
+													"    \r",
+													"    pm.expect(responseData.id).to.be.a('number');\r",
+													"    pm.expect(responseData.username).to.be.a('string');\r",
+													"    pm.expect(responseData.password).to.be.a('string');\r",
+													"    pm.expect(responseData.isAdmin).to.be.a('boolean');\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Username must be a non-empty string\", function () {\r",
+													"    const responseData = pm.response.json();\r",
+													"    \r",
+													"    pm.expect(responseData).to.be.an('object');\r",
+													"    pm.expect(responseData.username).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+													"});\r",
+													"\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "accept",
+												"value": "text/plain",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"TestCreator2\",\r\n  \"password\": \"TestCreator3\",\r\n  \"isAdmin\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Creators",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Creators"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "ModifyMap Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response should have no content for a successful PUT request\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"    pm.expect(pm.response.text()).to.be.empty;\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response time is less than 200ms\", function () {\r",
+													"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response adheres to the expected schema\", function () {\r",
+													"    // Since the response is a 204 No Content, we expect no body in the response.\r",
+													"    pm.expect(pm.response.text()).to.be.empty;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n     \"id\": 6,\r\n    \"username\": \"TestCreator2_edit\",\r\n    \"password\": \"TestCreator3\",\r\n    \"isAdmin\": true\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://localhost:7102/api/Creators/6",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Creators",
+												"6"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DeleteMap Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Response status code is 204\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(204);\r",
+													"});\r",
+													"\r",
+													"\r",
+													"pm.test(\"Response has no content\", function () {\r",
+													"    pm.expect(pm.response.code).to.equal(204);\r",
+													"    pm.expect(pm.response.text()).to.be.empty;\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "https://localhost:7102/api/Creators/6",
+											"protocol": "https",
+											"host": [
+												"localhost"
+											],
+											"port": "7102",
+											"path": [
+												"api",
+												"Creators",
+												"6"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Deployed",
+					"item": []
+				}
+			]
+		}
+	]
+}
