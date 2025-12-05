@@ -100,7 +100,6 @@ namespace GarrysMod.Models
                     CreatorId = 2,
                     MapId = 2,
                     CategoryId = 2,
-
                 }
            );
         }
