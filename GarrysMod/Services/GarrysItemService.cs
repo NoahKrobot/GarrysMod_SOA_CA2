@@ -18,10 +18,10 @@ namespace GarrysMod.Services
                 Id = garrysItem.Id,
                 Title = garrysItem.Title,
                 Description = garrysItem.Description,
-                CreatorUserName = garrysItem.Creator.Username,
+                CreatorUserName = garrysItem.Creator?.Username ?? "No creator",
                 CreatorID = garrysItem.CreatorId,
-                MapName = garrysItem.Map.Name,
-                CategoryName = garrysItem.Category.Name
+                MapName = garrysItem.Map?.Name ?? "No map",
+                CategoryName = garrysItem.Category?.Name ?? "No category",
             };
         }
 
