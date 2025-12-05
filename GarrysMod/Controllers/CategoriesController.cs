@@ -6,38 +6,37 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
-using GarrysMod.Interfaces;
-
 using GarrysMod.DTOs;
+using GarrysMod.Interfaces;
 
 namespace GarrysMod.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GarrysItemsController: ControllerBase
+    public class CategoriesController : ControllerBase
     {
         //private readonly ModContext _context;
 
-        private readonly IGarrysItem _context;
+        private readonly ICategory _context;
 
-        public GarrysItemsController(IGarrysItem service)
+        public CategoriesController(ICategory service)
         {
             _context = service;
         }
 
-        // GET: api/GarrysItems
+        // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DTO_GarrysItem>>> GetItems()
+        public async Task<ActionResult<IEnumerable<DTO_Category>>> GetCategories()
         {
-            var fetchedItems = await _context.GetAllItems();
+            var fetchedItems = await _context.GetAllCategories();
             return Ok(fetchedItems);
         }
 
-        // GET: api/GarrysItems/5
+        // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<DTO_GarrysItem>> GetGarrysItem(long id)
+        public async Task<ActionResult<DTO_Category>> GetCategory(int id)
         {
-            var garrysItem = await _context.GetItemById(id);
+            var garrysItem = await _context.GetCategoryById(id);
 
             if (garrysItem == null)
             {
@@ -46,35 +45,36 @@ namespace GarrysMod.Controllers
             return Ok(garrysItem);
         }
 
-        // PUT: api/GarrysItems/5
+        // PUT: api/Categories/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGarrysItem(long id, GarrysItem garrysItem)
+        public async Task<IActionResult> PutCategory(int id, Category category)
         {
-
-            if (id == garrysItem.Id)
+            if (id == category.Id)
             {
-                await _context.UpdateItem( id, garrysItem);
+                await _context.UpdateCategory(id,category);
                 return NoContent();
             }
             return BadRequest();
         }
 
-        // POST: api/GarrysItems
+        // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<DTO_GarrysItem>> PostGarrysItem(GarrysItem garrysItem)
+        public async Task<ActionResult<DTO_Category>> PostCategory(Category category)
         {
-            var garrysItemCreated = await _context.AddItem(garrysItem);
+            var garrysItemCreated = await _context.AddCategory(category);
             return Ok(garrysItemCreated);
         }
 
-        // DELETE: api/GarrysItems/5
+        // DELETE: api/Categories/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGarrysItem(long id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            await _context.DeleteItem(id);  
+            await _context.DeleteCategory(id);
             return NoContent();
         }
+
+      
     }
 }

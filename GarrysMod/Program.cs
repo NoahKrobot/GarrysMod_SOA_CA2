@@ -22,6 +22,7 @@ builder.Services.AddDbContext<ModContext>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IGarrysItem, GarrysItemService>();
+builder.Services.AddScoped<ICategory, CategoryService>();
 
 
 var app = builder.Build();
