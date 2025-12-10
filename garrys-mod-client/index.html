@@ -1,13 +1,20 @@
-<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
-
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-    <script type="module" src="/src/renderer.js"></script>
-  </body>
+<head>
+   <meta charset="UTF-8">
+   <title>My Electron App</title>
+   <style>
+      body{
+         text-align: center;
+         padding: 1rem;
+      }
+      p{
+         color: green;
+      }
+   </style>
+</head>
+<body>
+   <h1> HTTP Request Response: </h1>
+   <p id = "response" > </p>
+   <script type="module" src="/src/renderer.js"></script>
+</body>
 </html>

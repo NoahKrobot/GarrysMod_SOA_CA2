@@ -26,8 +26,18 @@
  * ```
  */
 
-import './index.css';
+// import './index.css';
 
 console.log(
-  '👋 This message is being logged by "renderer.js", included via Vite',
+  "Renderer loaded. "
 );
+
+
+const { ipcRenderer } = require('electron');
+const responseElement = document.getElementById('response');
+
+ipcRenderer.on('fetch-data-response', (event, data) => {
+   responseElement.innerHTML = JSON.stringify(data);
+});
+
+ipcRenderer.send('fetch-data'); 
