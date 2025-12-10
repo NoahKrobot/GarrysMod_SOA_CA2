@@ -40,3 +40,7 @@ dotnet ef migrations add ChangeItemDTO
 dotnet ef database update
 
 
+
+Electron vite
+
+https://electron-vite.org/guide/
