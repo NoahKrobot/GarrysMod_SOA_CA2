@@ -43,4 +43,6 @@ dotnet ef database update
 
 Electron vite
 
-https://electron-vite.org/guide/
+https://www.electronjs.org/docs/latest/
+
+https://www.tutorialspoint.com/http-rest-api-calls-in-electronjs
