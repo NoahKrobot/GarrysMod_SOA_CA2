@@ -2,7 +2,8 @@ import { app, BrowserWindow } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
 import axios from "axios";
-import { ipcMain } from 'electron';
+import { ipcMain } from "electron";
+import https from "https";
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
   app.quit();
@@ -29,21 +30,25 @@ const createWindow = () => {
     );
   }
 
-
-
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 };
 
+const agent = new https.Agent({
+  rejectUnauthorized: false, // <- skip TLS verification
+});
 
-ipcMain.on('fetch-data', async (event, args) => {
-      try {
-         const response = await axios.get('https://catfact.ninja/fact');
-         event.reply('fetch-data-response', response.data);
-      } catch (error) {
-         console.error(error);
-      }
-   });
+ipcMain.on("fetch-data", async (event, args) => {
+  try {
+    const response = await axios.get("https://localhost:7102/api/Categories", {
+      httpsAgent: agent,
+    });
+
+    event.reply("fetch-data-response", response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

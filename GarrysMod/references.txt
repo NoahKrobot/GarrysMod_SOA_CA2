@@ -41,8 +41,38 @@ dotnet ef database update
 
 
 
+CLIENT*************
+
 Electron vite
 
 https://www.electronjs.org/docs/latest/
 https://www.electronforge.io/
 https://www.tutorialspoint.com/http-rest-api-calls-in-electronjs
+
+
+
+rejectUnauthorized and HTTP agent
+https://stackoverflow.com/questions/60061143/using-rejectunauthorized-with-node-fetch-in-node-js
+
+
+// Source - https://stackoverflow.com/a
+// Posted by CodeBiker, modified by community. See post 'Timeline' for change history
+// Retrieved 2025-12-10, License - CC BY-SA 4.0
+
+const fetch = require("node-fetch");
+const https = require('https');
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false,
+});
+
+async function getData() {
+  const resp = await fetch(
+    "https://myexampleapi.com/endpoint",
+    {
+      agent: httpsAgent,
+    },
+  )
+  const data = await resp.json()
+  return data
+}
