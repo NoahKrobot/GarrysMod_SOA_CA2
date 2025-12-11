@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
-
+import "../styles/formPages.css";
 import Navbar from "./Navbar.jsx";
 
 export default function AddItem({ user, logout, goHome }) {
@@ -92,7 +92,10 @@ export default function AddItem({ user, logout, goHome }) {
         }
 
         setMessage("Item created successfully.");
-        goHome();
+
+        setTimeout(() => {
+          goHome();
+        }, 1500);
       })
       .catch((err) => {
         setMessage("Error: " + String(err));
@@ -100,75 +103,84 @@ export default function AddItem({ user, logout, goHome }) {
   };
 
   return (
-    <div>
-      <h1>AddItem</h1>
-      <p>{message}</p>
+    <div className="page_addItem">
+      {/* <Navbar user={user} logout={logout} /> */}
 
-      <button></button>
-
-      <form onSubmit={handleSubmit} style={{ maxWidth: "600px" }}>
-        <div style={{ marginBottom: "1rem" }}>
-          <label htmlFor="title">Title</label>
-          <input
-            id="title"
-            type="text"
-            value={itemTitle}
-            onChange={(e) => setitemTitle(e.target.value)}
-            required
-          />
+      <div className="card_addItem">
+        <div className="header_addItem">
+          <h1>Add Workshop Item</h1>
+          <p className="header_subtitle">
+            Create a new Garry&apos;s Mod addon for your collection.
+          </p>
         </div>
 
-        <div style={{ marginBottom: "1rem" }}>
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            value={itemDesc}
-            onChange={(e) => setitemDesc(e.target.value)}
-            rows={4}
-          />
-        </div>
+        {message && <div className="card_message">{message}</div>}
 
-        <div style={{ marginBottom: "1rem" }}>
-          <label>Creator ID</label>
-          <div>{user.id ?? "Unknown"}</div>
-        </div>
+        <form onSubmit={handleSubmit} className="form_container">
+          <div className="form_row">
+            <label htmlFor="title">TITLE</label>
+            <input
+              id="title"
+              type="text"
+              value={itemTitle}
+              onChange={(e) => setitemTitle(e.target.value)}
+              required
+            />
+          </div>
 
-        <div style={{ marginBottom: "1rem" }}>
-          <label htmlFor="map">Map</label>
-          <select
-            id="map"
-            value={itemMapId}
-            onChange={(e) => setitemMapId(e.target.value)}
-            required
-          >
-            <option value="">Select a map...</option>
-            {maps.map((map) => (
-              <option key={map.id} value={map.id}>
-                {map.name ?? `Map ${map.id}`}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="form_row">
+            <label htmlFor="description">DESCRIPTION</label>
+            <textarea
+              id="description"
+              value={itemDesc}
+              onChange={(e) => setitemDesc(e.target.value)}
+              rows={5}
+            />
+          </div>
 
-        <div style={{ marginBottom: "1.5rem" }}>
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            value={itemCategoryId}
-            onChange={(e) => setitemCategoryId(e.target.value)}
-            required
-          >
-            <option value="">Select a category...</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name ?? `Category ${category.id}`}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="form_row form_rowInline">
+            <div className="form_inlineBlock">
+              <label htmlFor="map">MAP</label>
+              <select
+                id="map"
+                value={itemMapId}
+                onChange={(e) => setitemMapId(e.target.value)}
+                required
+              >
+                <option value="">Select a map...</option>
+                {maps.map((map) => (
+                  <option key={map.id} value={map.id}>
+                    {map.name ?? `Map ${map.id}`}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <button type="submit">Create Garry&apos;s Item</button>
-      </form>
+            <div className="form_inlineBlock">
+              <label htmlFor="category">CATEGORY</label>
+              <select
+                id="category"
+                value={itemCategoryId}
+                onChange={(e) => setitemCategoryId(e.target.value)}
+                required
+              >
+                <option value="">Select a category...</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name ?? `Category ${category.id}`}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="form_actions">
+            <button type="submit" className="form_btn form_btnPrimary">
+              Publish Item
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
