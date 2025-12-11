@@ -40,6 +40,8 @@ dotnet ef migrations add ChangeItemDTO
 dotnet ef database update
 
 
+q
+
 
 CLIENT*************
 
