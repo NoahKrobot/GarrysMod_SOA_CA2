@@ -1,7 +1,12 @@
-export default function Workshop(){
+import React from "react";
+import Navbar from "./Navbar.jsx";
 
-    console.log("Workshop page.")
-    return(
-            <h1>Workshop1</h1>
-    )
+export default function Workshop({ user, logout }) {
+    console.log("user: ", user)
+  return (
+    <div>
+      <Navbar user={user} logout={logout} />
+      <h1>Workshop Page</h1>
+    </div>
+  );
 }
