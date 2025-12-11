@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar.jsx";
 import MyItems from "./components/MyItems.jsx";
 import AddItem from "./components/AddItem.jsx";
 import AddMap from "./components/AddMap.jsx";
+import AddCategory from "./components/AddCategory.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -36,12 +37,14 @@ const App = () => {
             home={() => setView("home")}
             addItem={() => setView("addItem")}
             addMap={() => setView("addMap")}
+            addCategory={() => setView("addCategory")}
           />
 
           {view === "home" && <Workshop user={user} logout={handleLogout} />}
           {view === "myItems" && <MyItems user={user} logout={handleLogout} />}
           {view === "addItem" && <AddItem user={user} logout={handleLogout} goHome={() => setView("home")}/>}
           {view === "addMap" && <AddMap user={user} logout={handleLogout} goHome={() => setView("home")}/>}
+          {view === "addCategory" && <AddCategory user={user} logout={handleLogout} goHome={() => setView("home")}/>}
         </>
       )}
     </>
