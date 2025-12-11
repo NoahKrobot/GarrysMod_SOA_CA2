@@ -110,7 +110,7 @@ export default function AddItem({ user, logout, goHome }) {
         <div className="header_addItem">
           <h1>Add Workshop Item</h1>
           <p className="header_subtitle">
-            Create a new Garry&apos;s Mod addon for your collection.
+            Create a new Garry's Mod addon for your collection.
           </p>
         </div>
 

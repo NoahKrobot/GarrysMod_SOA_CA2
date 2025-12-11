@@ -31,15 +31,13 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 };
 
-
-
 ipcMain.handle("fetch-data", async (event, args) => {
   try {
     const response = await axios.get("https://localhost:7102/api/Creators", {
       httpsAgent: agent,
     });
 
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
@@ -57,7 +55,7 @@ ipcMain.handle("login", async (event, { username, password }) => {
     if (user) {
       // event.reply("login-response", { success: true, user });
       // mainWindow.loadFile(path.join(__dirname, "../renderer/workshop.html"))
-      return { success: true, user}
+      return { success: true, user };
     } else {
       // event.reply("login-response", {
       //   success: false,
@@ -75,22 +73,17 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
 
-
-
-
-
 ipcMain.handle("fetch-addons", async (event, args) => {
   try {
     const response = await axios.get("https://localhost:7102/api/GarrysItems", {
       httpsAgent: agent,
     });
 
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 });
-
 
 ipcMain.handle("fetch-categories", async (event, args) => {
   try {
@@ -98,12 +91,11 @@ ipcMain.handle("fetch-categories", async (event, args) => {
       httpsAgent: agent,
     });
 
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 });
-
 
 ipcMain.handle("fetch-maps", async (event, args) => {
   try {
@@ -111,24 +103,67 @@ ipcMain.handle("fetch-maps", async (event, args) => {
       httpsAgent: agent,
     });
 
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 });
-
-
-
 
 ipcMain.handle("post-garrysItem", async (event, args) => {
   try {
-    const response = await axios.post("https://localhost:7102/api/GarrysItems", args, {
-      httpsAgent: agent,
-    });
+    const response = await axios.post(
+      "https://localhost:7102/api/GarrysItems",
+      args,
+      {
+        httpsAgent: agent,
+      }
+    );
 
-    return response.data
+    return response.data;
   } catch (error) {
     console.error(error);
   }
 });
 
+ipcMain.handle("post-map", async (event, args) => {
+  try {
+    const response = await axios.post("https://localhost:7102/api/Maps", args, {
+      httpsAgent: agent,
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+ipcMain.handle("post-category", async (event, args) => {
+  try {
+    const response = await axios.post(
+      "https://localhost:7102/api/Categories",
+      args,
+      {
+        httpsAgent: agent,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+ipcMain.handle("post-creator", async (event, args) => {
+  try {
+    const response = await axios.post(
+      "https://localhost:7102/api/Creator",
+      args,
+      {
+        httpsAgent: agent,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
