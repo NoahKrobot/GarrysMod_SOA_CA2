@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {createRoot} from 'react-dom/client'
 import Auth from './components/Auth.jsx'
+import Workshop from './components/Workshop.jsx'
+
 const App = () =>{
+  const [user, setUser] =useState(null)
+
+   useEffect(() => {
+    const storedUser = sessionStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
 
   return(
   <>
-    <Auth/>
+     {!user ? (
+        <Auth onLoginSuccess={(user) => setUser(user)} />
+      ) : (
+        <Workshop user={user} />
+      )}
   </>
   )
 }

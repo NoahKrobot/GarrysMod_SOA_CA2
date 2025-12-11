@@ -33,10 +33,6 @@
 const { ipcRenderer } = require('electron');
 
 
-
-
-
-
 const responseElement = document.getElementById('response');
 
 const loginForm = document.getElementById("loginForm");
