@@ -3,9 +3,12 @@ import { createRoot } from "react-dom/client";
 import Auth from "./components/Auth.jsx";
 import Workshop from "./components/Workshop.jsx";
 import Navbar from "./components/Navbar.jsx";
+import MyItems from "./components/MyItems.jsx";
+import AddItem from "./components/AddItem.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
+  const [view, setView] = useState("home");
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("user");
@@ -24,7 +27,19 @@ const App = () => {
       {!user ? (
         <Auth onLoginSuccess={(user) => setUser(user)} />
       ) : (
-        <Workshop user={user} logout={handleLogout} />
+        <>
+          <Navbar
+            user={user}
+            logout={handleLogout}
+            myItems={() => setView("myItems")}
+            home={() => setView("home")}
+            addItem={() => setView("addItem")}
+          />
+
+          {view === "home" && <Workshop user={user} logout={handleLogout} />}
+          {view === "myItems" && <MyItems user={user} logout={handleLogout} />}
+          {view === "addItem" && <AddItem user={user} logout={handleLogout} goHome={() => setView("home")}/>}
+        </>
       )}
     </>
   );

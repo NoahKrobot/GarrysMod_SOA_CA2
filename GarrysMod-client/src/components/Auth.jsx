@@ -37,7 +37,7 @@ export default function Auth({ onLoginSuccess }) {
         }
       })
       .catch((err) => {
-        setMessage("Unexpected error: " + String(err));
+        setMessage("Error: " + String(err));
       })
       .finally(() => setLoading(false));
   };

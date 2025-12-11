@@ -3,7 +3,7 @@ const { ipcRenderer } = require("electron");
 
 import Navbar from "./Navbar.jsx";
 
-export default function Workshop({ user, logout }) {
+export default function myItems({ user, logout }) {
   console.log("user: ", user);
 
   let [message, setMessage] = useState("");
@@ -70,7 +70,10 @@ export default function Workshop({ user, logout }) {
   const renderedItems = (() => {
     const rows = [];
 
-    garrysItems.forEach((item) => {
+
+    garrysItems
+    .filter(item => item.creatorID === user.id)
+    .forEach((item) => {
       const creator = creators.find((cr) => cr.id === item.creatorID);
       const map = maps.find((m) => m.id === item.mapID);
       const category = categories.find((cat) => cat.id === item.categoryID);
@@ -106,10 +109,9 @@ export default function Workshop({ user, logout }) {
   return (
     <div>
       {/* <Navbar user={user} logout={logout} /> */}
-      <h1>Workshop Page</h1>
+      <h1>My Items</h1>
       <p>{message}</p>
 
-      <button></button>
 
       <div>
         {garrysItems.length === 0 ? <p>No items loaded.</p> : renderedItems}

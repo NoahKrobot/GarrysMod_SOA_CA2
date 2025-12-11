@@ -116,3 +116,19 @@ ipcMain.handle("fetch-maps", async (event, args) => {
     console.error(error);
   }
 });
+
+
+
+
+ipcMain.handle("post-garrysItem", async (event, args) => {
+  try {
+    const response = await axios.post("https://localhost:7102/api/GarrysItems", args, {
+      httpsAgent: agent,
+    });
+
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+});
+
