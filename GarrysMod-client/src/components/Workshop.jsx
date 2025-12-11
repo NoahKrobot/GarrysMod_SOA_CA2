@@ -3,15 +3,14 @@ const { ipcRenderer } = require("electron");
 
 import Navbar from "./Navbar.jsx";
 
-
 export default function Workshop({ user, logout }) {
   console.log("user: ", user);
 
   let [message, setMessage] = useState("");
-  let [maps, setMaps] = useState([])
-  let [garrysItems, setGarrysItems] = useState([])
-  let [categories, setCategories] = useState([])
-  let [creators, setCreators] = useState([])
+  let [maps, setMaps] = useState([]);
+  let [garrysItems, setGarrysItems] = useState([]);
+  let [categories, setCategories] = useState([]);
+  let [creators, setCreators] = useState([]);
 
   useEffect(() => {
     try {
@@ -19,7 +18,7 @@ export default function Workshop({ user, logout }) {
         if (data.error) {
           console.error("Fetch error:", data.error);
         } else {
-          console.log("Fetched data:", data);
+          console.log("garrysItems:", data);
           setGarrysItems(data);
         }
       });
@@ -32,13 +31,12 @@ export default function Workshop({ user, logout }) {
         if (data.error) {
           console.error("Fetch error:", data.error);
         } else {
-          console.log("Fetched data:", data);
+          console.log("maps:", data);
           setMaps(data);
         }
       });
     } catch (e) {
-          setMessage(String(e));
-
+      setMessage(String(e));
     }
 
     try {
@@ -46,35 +44,74 @@ export default function Workshop({ user, logout }) {
         if (data.error) {
           console.error("Fetch error:", data.error);
         } else {
-          console.log("Fetched data:", data);
+          console.log("categories:", data);
           setCategories(data);
         }
       });
     } catch (e) {
-            setMessage(String(e));
-
+      setMessage(String(e));
     }
 
-     try {
-      ipcRenderer.invoke("fetch-creators").then((data) => {
+    try {
+      ipcRenderer.invoke("fetch-data").then((data) => {
         if (data.error) {
           console.error("Fetch error:", data.error);
         } else {
-          console.log("Fetched data:", data);
+          console.log("creators:", data);
           setCreators(data);
         }
       });
     } catch (e) {
-            setMessage(String(e));
-
+      setMessage(String(e));
     }
   }, []);
+
+  const renderedItems = (() => {
+    const rows = [];
+
+    garrysItems.forEach((item) => {
+      // defensive lookups
+      const creator = creators.find((cr) => cr.id === item.creatorID);
+      const map = maps.find((m) => m.id === item.mapID);
+      const category = categories.find((cat) => cat.id === item.categoryID);
+
+      rows.push(
+        <div key={item.id}>
+          <h3>{item.title}</h3>
+          <p>Description: {item.description || "No description"}</p>
+          <p>
+            Creator:{" "}
+            {creator
+              ? (creator.name ?? creator.username ?? `id:${creator.id}`)
+              : "Unknown creator"}
+          </p>
+          <p>
+            Map:{" "}
+            {map ? (map.name ?? map.title ?? `id:${map.id}`) : "Unknown map"}
+          </p>
+          <p>
+            Category:{" "}
+            {category
+              ? (category.name ?? category.title ?? `id:${category.id}`)
+              : "Unknown category"}
+          </p>
+          <hr />
+        </div>
+      );
+    });
+
+    return rows;
+  })();
 
   return (
     <div>
       <Navbar user={user} logout={logout} />
       <h1>Workshop Page</h1>
       <p>{message}</p>
+
+      <div>
+        {garrysItems.length === 0 ? <p>No items loaded.</p> : renderedItems}
+      </div>
     </div>
   );
 }
