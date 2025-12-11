@@ -9,9 +9,11 @@ if (started) {
   app.quit();
 }
 
+let mainWindow;
+
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -34,19 +36,73 @@ const createWindow = () => {
   // mainWindow.webContents.openDevTools();
 };
 
+
+// *********** IPC
+
 const agent = new https.Agent({
   rejectUnauthorized: false, // <- skip TLS verification
 });
 
 ipcMain.on("fetch-data", async (event, args) => {
   try {
-    const response = await axios.get("https://localhost:7102/api/Categories", {
+    const response = await axios.get("https://localhost:7102/api/Creators", {
       httpsAgent: agent,
     });
 
     event.reply("fetch-data-response", response.data);
   } catch (error) {
     console.error(error);
+  }
+});
+
+ipcMain.on("login", async (event, { username, password }) => {
+  let success = false;
+
+  console.log("log-in-step entered");
+  try {
+    const response = await axios.get("https://localhost:7102/api/Creators", {
+      httpsAgent: agent,
+    });
+
+    let creators = response.data;
+    console.log("users: ", creators);
+
+    let userToBeFound = creators.find(
+      (user) => user.username === username && user.password === password
+    );
+
+    if (userToBeFound) {
+      success = true;
+      console.log("Log in SUCCESS. User is: ", { username });
+
+      let loggedUserDetails = {
+        id: userToBeFound.id,
+        username: userToBeFound.username,
+        isAdmin: userToBeFound.isAdmin,
+      };
+
+      // sessionStorage.setItem("loggedInUser", JSON.stringify(loggedUser));
+      event.reply("login-succes-storage", loggedUserDetails);
+
+      ipcMain.emit("routing", event, { success: true, route: "WORKSHOP" });
+    } else {
+      console.log("Log in FAILURE. User is: ", { username });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  // event.reply("login-result", { success: success });
+});
+
+ipcMain.on("routing", async (event, { success, route }) => {
+  if (success && route) {
+    if (route == "WORKSHOP") {
+      console.log("Routing to workshop page...");
+      mainWindow.loadFile(
+        path.join(__dirname, `../../components/html/workshop.html`)
+      );
+    }
   }
 });
 
