@@ -12,7 +12,7 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      // preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
     },
@@ -30,6 +30,20 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
+
+
+
+ipcMain.handle("fetch-data", async (event, args) => {
+  try {
+    const response = await axios.get("https://localhost:7102/api/Creators", {
+      httpsAgent: agent,
+    });
+
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 ipcMain.handle("login", async (event, { username, password }) => {
   try {
@@ -63,9 +77,37 @@ app.on("window-all-closed", () => {
 
 
 
-ipcMain.handle("fetch-data", async (event, args) => {
+
+
+ipcMain.handle("fetch-addons", async (event, args) => {
   try {
-    const response = await axios.get("https://localhost:7102/api/Creators", {
+    const response = await axios.get("https://localhost:7102/api/GarrysItems", {
+      httpsAgent: agent,
+    });
+
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+ipcMain.handle("fetch-categories", async (event, args) => {
+  try {
+    const response = await axios.get("https://localhost:7102/api/Categories", {
+      httpsAgent: agent,
+    });
+
+    return response.data
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+
+ipcMain.handle("fetch-maps", async (event, args) => {
+  try {
+    const response = await axios.get("https://localhost:7102/api/Maps", {
       httpsAgent: agent,
     });
 
