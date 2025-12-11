@@ -156,7 +156,7 @@ ipcMain.handle("post-category", async (event, args) => {
 ipcMain.handle("post-creator", async (event, args) => {
   try {
     const response = await axios.post(
-      "https://localhost:7102/api/Creator",
+      "https://localhost:7102/api/Creators",
       args,
       {
         httpsAgent: agent,
@@ -165,5 +165,6 @@ ipcMain.handle("post-creator", async (event, args) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    return { error: true, message: String(error) };
   }
 });

@@ -1,7 +1,15 @@
 import React from "react";
 import "../styles/navbar.css";
 import AddCategory from "./AddCategory";
-export default function Navbar({ user, logout, myItems, home, addItem, addMap, addCategory }) {
+export default function Navbar({
+  user,
+  logout,
+  myItems,
+  home,
+  addItem,
+  addMap,
+  addCategory,
+}) {
   return (
     <nav className="nav_container">
       <div className="nav_left">
@@ -16,14 +24,17 @@ export default function Navbar({ user, logout, myItems, home, addItem, addMap, a
           My Items
         </button>
 
-        <button onClick={addItem} className="nav_btn nav_btnPrimary">
-          Add Item
-        </button>
+        {user.isAdmin && (
+          <>
+            <button onClick={addItem} className="nav_btn nav_btnPrimary">
+              Add Item
+            </button>
 
-        <button onClick={addMap} className="nav_btn nav_btnPrimary">
-          Add Map
-        </button>
-
+            <button onClick={addMap} className="nav_btn nav_btnPrimary">
+              Add Map
+            </button>
+          </>
+        )}
         <button onClick={addCategory} className="nav_btn nav_btnPrimary">
           Add Category
         </button>
