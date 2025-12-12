@@ -177,53 +177,22 @@ ipcMain.handle("delete-creator", async (event, id) => {
 });
 
 
-
-ipcMain.handle("delete-creator", async (event, id) => {
-  try {
-    const response = await axios.delete(
-      `https://localhost:7102/api/Creators/${id}`,
-      {
-        httpsAgent: agent,
-      }
-    );
-
-    if (response.status === 204) {
-      return { success: true };
-    }
-
-
-    //the response might be 200 as well 
-    return { success: true, data: response.data };
-
-  } catch (error) {
-    console.error("Error deleting creator:", error);
-    return { success: false, error: String(error) };
-  }
-});
-
-
-
-ipcMain.handle("make-creator-admin", async (event, arg) => {
+ipcMain.handle("toggle-creator-admin-state", async (event, creator) => {
   try {
     const response = await axios.put(
-      `https://localhost:7102/api/Creators/${id}`,
-      {
-        httpsAgent: agent,
-      }
+      `https://localhost:7102/api/Creators/${creator.id}`,
+      creator, 
+      { httpsAgent: agent }
     );
 
-    if (response.status === 204) {
-      return { success: true };
-    }
-
-    //the response might be 200 as well 
-    return { success: true, data: response.data };
+    return response.data;
 
   } catch (error) {
-    console.error("Error deleting creator:", error);
+    console.error("Error updating creator:", error);
     return { success: false, error: String(error) };
   }
 });
+
 
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 const { ipcRenderer } = require("electron");
-
+import "../styles/formPages.css";
 import Navbar from "./Navbar.jsx";
 
 export default function Workshop({ user, logout }) {

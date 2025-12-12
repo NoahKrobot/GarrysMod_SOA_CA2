@@ -52,10 +52,47 @@ export default function ModifyCreators({ user, logout, goHome }) {
       });
   };
 
+  const handleToggleAdmin = (creator) => {
+    const updated = {
+      ...creator,
+      isAdmin: !creator.isAdmin,
+    };
+
+    setMessage("");
+    setError("");
+
+    // console.log("Updating creator:", updated);
+
+    ipcRenderer
+      .invoke("toggle-creator-admin-state", updated)
+      .then((res) => {
+        if (res && res.error) {
+          //   console.error("Failed to update creator:", res.message);
+          setError("Failed to update creator admin status.");
+          return;
+        }
+
+        setCreators((prev) =>
+          prev.map((c) =>
+            c.id === creator.id ? { ...c, isAdmin: updated.isAdmin } : c
+          )
+        );
+
+        setMessage(
+          `${creator.username} is now ${updated.isAdmin ? "an admin" : "not an admin"}.`
+        );
+      })
+      .catch((err) => {
+        console.error("Error updating creator:", err);
+        setError("Error: " + String(err));
+      });
+  };
+
   const renderedCreators = (() => {
     const rows = [];
 
     creators.forEach((creator) => {
+      if (creator.id === user.id) return;
       rows.push(
         <div key={creator.id} className="creator_row">
           <div className="creator_info">
@@ -66,6 +103,13 @@ export default function ModifyCreators({ user, logout, goHome }) {
             <div>Admin: {creator.isAdmin ? "Yes" : "No"}</div>
           </div>
           <div className="form_actions">
+            <button
+              className="form_btn form_btnPrimary"
+              onClick={() => handleToggleAdmin(creator)}
+            >
+              {creator.isAdmin ? "Remove Admin" : "Make Admin"}
+            </button>
+
             <button
               className="form_btn form_btnDanger"
               onClick={() => handleDelete(creator.id)}
@@ -89,8 +133,8 @@ export default function ModifyCreators({ user, logout, goHome }) {
             Create a new Garry's Mod item category.
           </p>
 
-            {message && <div className="better_message">{message}</div>}
-            {error && <div className="error_message">{error}</div>}
+          {message && <div className="better_message">{message}</div>}
+          {error && <div className="error_message">{error}</div>}
 
           <div>
             {creators.length === 0 ? <p>No items loaded.</p> : renderedCreators}
