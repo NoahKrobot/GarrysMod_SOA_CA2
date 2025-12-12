@@ -33,6 +33,41 @@ https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-wit
 https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
 
 ## Migrations:
-
 dotnet ef migrations add ChangeItemDTO
 dotnet ef database update
+
+
+## Unit MOQ tests:
+https://learn.microsoft.com/en-us/aspnet/core/web-api/action-return-types?view=aspnetcore-10.0&utm_source=chatgpt.com
+
+# Client References
+This project is built using Electron with Vite and React.JS.
+
+## CONFIG
+https://www.electronjs.org/docs/latest/
+https://www.electronforge.io/
+
+## REST
+https://www.tutorialspoint.com/http-rest-api-calls-in-electronjs
+
+## REACT.JS
+https://www.youtube.com/watch?v=XmSQtyPjbxY
+
+## rejectUnauthorized and HTTP agent
+https://stackoverflow.com/questions/60061143/using-rejectunauthorized-with-node-fetch-in-node-js
+
+## Delay
+https://stackoverflow.com/questions/42089548/how-to-add-delay-in-react-js
+
+## confirm modal
+https://www.codecademy.com/resources/docs/javascript/window/confirm
+
+
+
+
+
+
+
+
+
+
