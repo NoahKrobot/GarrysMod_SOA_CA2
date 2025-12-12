@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using GarrysMod.Models;
 using Microsoft.Extensions.Configuration;
 using System;
+using GarrysMod.Interfaces;
+using GarrysMod.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,15 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<GarrysContext>(opt =>
-opt.UseInMemoryDatabase("MoviesList"));
-builder.Services.AddDbContext<GarrysContext>(options =>
-        options.UseSqlite(builder.configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<ModContext>(opt =>
+//opt.UseInMemoryDatabase("MoviesList"));
+builder.Services.AddDbContext<ModContext>(options =>
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IGarrysItem, GarrysItemService>();
+builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IMap, MapService>();
+builder.Services.AddScoped<ICreator, CreatorService>();
+
 
 var app = builder.Build();
 
