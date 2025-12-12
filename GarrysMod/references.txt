@@ -63,3 +63,8 @@ https://stackoverflow.com/questions/42089548/how-to-add-delay-in-react-js
 
 confirm modal:
 https://www.codecademy.com/resources/docs/javascript/window/confirm
+
+
+Unit tests:
+
+https://learn.microsoft.com/en-us/aspnet/core/web-api/action-return-types?view=aspnetcore-10.0&utm_source=chatgpt.com
