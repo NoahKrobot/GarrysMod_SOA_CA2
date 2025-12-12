@@ -7,6 +7,7 @@ import MyItems from "./components/MyItems.jsx";
 import AddItem from "./components/AddItem.jsx";
 import AddMap from "./components/AddMap.jsx";
 import AddCategory from "./components/AddCategory.jsx";
+import ModifyCreators from "./components/ModifyCreators.jsx";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -38,6 +39,7 @@ const App = () => {
             addItem={() => setView("addItem")}
             addMap={() => setView("addMap")}
             addCategory={() => setView("addCategory")}
+            modifyCreators={()=>setView("modifyCreators")}
           />
 
           {view === "home" && <Workshop user={user} logout={handleLogout} />}
@@ -45,6 +47,7 @@ const App = () => {
           {view === "addItem" && <AddItem user={user} logout={handleLogout} goHome={() => setView("home")}/>}
           {view === "addMap" && <AddMap user={user} logout={handleLogout} goHome={() => setView("home")}/>}
           {view === "addCategory" && <AddCategory user={user} logout={handleLogout} goHome={() => setView("home")}/>}
+          {view === "modifyCreators" && <ModifyCreators user={user} logout={handleLogout} goHome={() => setView("home")}/>}
         </>
       )}
     </>

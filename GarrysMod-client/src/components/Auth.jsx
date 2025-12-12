@@ -14,7 +14,6 @@ export default function Auth({ onLoginSuccess }) {
   const [signUpPassFirst, setsignUpPassFirst] = useState("");
   const [signUpPassSecond, setsignUpPassSecond] = useState("");
 
-  // Fetch initial data
   useEffect(() => {
     ipcRenderer.invoke("fetch-data").then((data) => {
       if (data.error) {

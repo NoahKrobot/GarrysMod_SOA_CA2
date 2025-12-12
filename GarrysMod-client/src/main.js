@@ -153,18 +153,77 @@ ipcMain.handle("post-category", async (event, args) => {
   }
 });
 
-ipcMain.handle("post-creator", async (event, args) => {
+ipcMain.handle("delete-creator", async (event, id) => {
   try {
-    const response = await axios.post(
-      "https://localhost:7102/api/Creators",
-      args,
+    const response = await axios.delete(
+      `https://localhost:7102/api/Creators/${id}`,
       {
         httpsAgent: agent,
       }
     );
-    return response.data;
+
+    if (response.status === 204) {
+      return { success: true };
+    }
+
+
+    //the response might be 200 as well 
+    return { success: true, data: response.data };
+
   } catch (error) {
-    console.error(error);
-    return { error: true, message: String(error) };
+    console.error("Error deleting creator:", error);
+    return { success: false, error: String(error) };
   }
 });
+
+
+
+ipcMain.handle("delete-creator", async (event, id) => {
+  try {
+    const response = await axios.delete(
+      `https://localhost:7102/api/Creators/${id}`,
+      {
+        httpsAgent: agent,
+      }
+    );
+
+    if (response.status === 204) {
+      return { success: true };
+    }
+
+
+    //the response might be 200 as well 
+    return { success: true, data: response.data };
+
+  } catch (error) {
+    console.error("Error deleting creator:", error);
+    return { success: false, error: String(error) };
+  }
+});
+
+
+
+ipcMain.handle("make-creator-admin", async (event, arg) => {
+  try {
+    const response = await axios.put(
+      `https://localhost:7102/api/Creators/${id}`,
+      {
+        httpsAgent: agent,
+      }
+    );
+
+    if (response.status === 204) {
+      return { success: true };
+    }
+
+    //the response might be 200 as well 
+    return { success: true, data: response.data };
+
+  } catch (error) {
+    console.error("Error deleting creator:", error);
+    return { success: false, error: String(error) };
+  }
+});
+
+
+

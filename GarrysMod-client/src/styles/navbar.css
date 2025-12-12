@@ -10,6 +10,12 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
 }
 
+.nav_containerSec {
+  display: flex;
+  justify-content: flex-end;
+
+}
+
 .nav_left {
   display: flex;
   align-items: center;
@@ -31,7 +37,7 @@
   padding-bottom: 1vh;
   padding-left: 2vh;
   padding-right: 2vh;
-  
+
   border: none;
   border-radius: 0.5vh;
   cursor: pointer;
@@ -46,6 +52,17 @@
   background: linear-gradient(90deg, #47bfff 0%, #1a9fff 60%, #1999ff 100%);
   color: white;
 }
+
+.nav_btnAdds {
+  background: linear-gradient(90deg, #06e4638b 0%, #01ff63ab 60%, #09ff7098 100%);
+  color: white;
+}
+
+.nav_btnEdit {
+  background: linear-gradient(90deg, #e45f06d9 0%, #ff6f01bb 60%, #ff7c0998 100%);
+  color: white;
+}
+
 
 .nav_btnPrimary:hover {
   filter: brightness(1.15);
@@ -69,5 +86,3 @@
 .nav_btnSecondary:active {
   transform: translateY(1px);
 }
-
-

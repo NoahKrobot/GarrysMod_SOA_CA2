@@ -9,40 +9,54 @@ export default function Navbar({
   addItem,
   addMap,
   addCategory,
+  modifyCreators
 }) {
   return (
-    <nav className="nav_container">
-      <div className="nav_left">
-        <p className="nav_welcome">Welcome, {user.username}!</p>
-      </div>
-      <div className="nav_buttons">
-        <button onClick={home} className="nav_btn nav_btnPrimary">
-          Home
-        </button>
+    <>
+      <nav className="nav_container">
+        <div className="nav_left">
+          <p className="nav_welcome">Welcome, {user.username}!</p>
+        </div>
+        <div className="nav_buttons">
+          <button onClick={home} className="nav_btn nav_btnPrimary">
+            Home
+          </button>
 
-        <button onClick={myItems} className="nav_btn nav_btnPrimary">
-          My Items
-        </button>
+          <button onClick={myItems} className="nav_btn nav_btnPrimary">
+            My Items
+          </button>
+          <button onClick={addItem} className="nav_btn nav_btnAdds">
+            Add Item
+          </button>
 
-        {user.isAdmin && (
-          <>
-            <button onClick={addItem} className="nav_btn nav_btnPrimary">
-              Add Item
-            </button>
+          <button onClick={logout} className="nav_btn nav_btnSecondary">
+            Logout
+          </button>
+        </div>
+      </nav>
 
-            <button onClick={addMap} className="nav_btn nav_btnPrimary">
-              Add Map
-            </button>
-          </>
-        )}
-        <button onClick={addCategory} className="nav_btn nav_btnPrimary">
-          Add Category
-        </button>
+      {user.isAdmin && (
+        <div className="nav_containerSec">
+          <nav className="nav_container">
+           
+            <div className="nav_buttons">
 
-        <button onClick={logout} className="nav_btn nav_btnSecondary">
-          Logout
-        </button>
-      </div>
-    </nav>
+              <button onClick={modifyCreators} className="nav_btn nav_btnEdit">
+                Creators
+              </button>
+
+              <button onClick={addMap} className="nav_btn nav_btnAdds">
+                Add Map
+              </button>
+              <button onClick={addCategory} className="nav_btn nav_btnAdds">
+                Add Category
+              </button>
+             
+            
+            </div>
+          </nav>
+        </div>
+      )}
+    </>
   );
 }

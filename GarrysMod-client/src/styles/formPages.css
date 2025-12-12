@@ -124,3 +124,53 @@
   background: linear-gradient(90deg, #50ff476e 0%, #1aff2d91 60%, #3bff197f 100%);
   color: white;
 }
+
+
+.creator_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5vh 1vh;
+  border-bottom: 1px solid #2b3745;
+}
+
+.creator_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  font-size: 0.9em;
+}
+
+.form_btnDanger {
+  background: linear-gradient(90deg, #ff4b4b 0%, #ff1a1a 60%, #ff6b6b 100%);
+  color: white;
+}
+
+
+.error_message {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    /* padding: 2vh; */
+    border-radius: 10vh;
+    background: rgb(96 38 38 / 85%);
+    /* border: 1px solid #f46698; */
+    font-size: 1em;
+    padding: 2vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+}
+
+.better_message {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    /* padding: 2vh; */
+    border-radius: 10vh;
+    background: rgba(56, 96, 38, 0.85);
+    /* border: 1px solid #f46698; */
+    font-size: 1em;
+    padding: 2vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+}
