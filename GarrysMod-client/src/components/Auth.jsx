@@ -124,6 +124,11 @@ export default function Auth({ onLoginSuccess }) {
             />
           </div>
 
+          <p class="header_subtitle">To test admin:</p>
+
+          <p class="header_subtitle">Username: admin <br/>
+          Password: Admin123</p>
+
           <div className="auth_formActions">
             <button
               type="submit"
@@ -133,6 +138,8 @@ export default function Auth({ onLoginSuccess }) {
             >
               {loading ? "Logging in..." : "Login"}
             </button>
+
+
           </div>
         </form>
       </div>

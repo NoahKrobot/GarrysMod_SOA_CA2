@@ -16,6 +16,19 @@
   border: 1px solid #101721;
 }
 
+.card_addOn{
+  max-width: 40vh;
+  min-width: 40vh;
+  overflow: auto;
+  margin: 5vh auto;
+  padding: 2vh;
+  padding-left: 4vh;
+  padding-right: 4vh;
+  background: linear-gradient(145deg, #1b2838 0%, #101822 100%);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid #101721;
+}
+
 .header_addItem {
   border-bottom: 1px solid #2b3745;
   padding-bottom: 2vh;
@@ -166,11 +179,84 @@
     margin-bottom: 2vh;
     /* padding: 2vh; */
     border-radius: 10vh;
-    background: rgba(56, 96, 38, 0.85);
-    /* border: 1px solid #f46698; */
+    background: rgba(38, 70, 96, 0.85);
+   border: 1px solid #66c0f4;
     font-size: 1em;
     padding: 2vh;
     padding-top: 1vh;
     padding-bottom: 1vh;
     text-align: center;
 }
+
+
+
+
+.card_addOn {
+  position: relative;
+  border-radius: 1vh;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.card_addOn:hover {
+  transform: translateY(-0.7vh);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.75);
+  border-color: #66c0f4;
+}
+
+.addon_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vh;
+  margin-bottom: 1.5vh;
+}
+
+.addon_title {
+  font-size: 1.05em;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.addon_category {
+  padding: 1vh;
+  border-radius: 10vh;
+  background: rgba(102, 192, 244, 0.16);
+  border: 1px solid #66c0f4;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: #c7d5e0;
+  max-width: 10vh;
+
+}
+
+.addon_description {
+  font-size: 0.9em;
+  color: #acb2b8;
+  max-height: 10vh;
+  overflow: auto;
+  text-overflow: ellipsis;
+}
+
+.addon_details {
+ display: flex;
+    flex-direction: column;
+    gap: 0.7vh;
+    font-size: 0.8em;
+    align-items: flex-start;
+}
+
+.addon_detailsChild{
+  display: flex;
+  justify-content: space-between;
+  gap: 1vh;
+}
+
+.addon_detailsLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #66717f;
+}
+

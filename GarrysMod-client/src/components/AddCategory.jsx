@@ -49,7 +49,7 @@ export default function AddCategory({ user, logout, goHome }) {
           </p>
         </div>
 
-        {message && <div className="card_message">{message}</div>}
+        {message && <div className="better_message">{message}</div>}
 
         <form onSubmit={handleSubmit} className="form_container">
           <div className="form_row">
