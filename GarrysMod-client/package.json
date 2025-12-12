@@ -36,5 +36,10 @@
     "electron-squirrel-startup": "^1.0.1",
     "react": "^19.2.1",
     "react-dom": "^19.2.1"
+  },
+  "build": {
+  "directories": {
+    "output": "ClientApplication"
   }
+}
 }

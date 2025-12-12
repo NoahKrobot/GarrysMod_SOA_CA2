@@ -8,8 +8,6 @@
 //    -> map (one map can have many items)
 //    -> category (one category can have many items)
 
-//-> if user logs in they can create new items, and edit and delete their items
+//-> if user logs in they can create new items
 
-//-> if user is admin, they can CRUD all items
-
-//-> if user is guest they can only view items
+//-> if user is admin, they have extra functionallity, like deleting users and making them admins
