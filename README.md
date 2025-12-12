@@ -1,1 +1,38 @@
-# GarrysMod
+# Database References
+This project uses DB: Microsoft.EntityFrameworkCore.Sqlite
+
+https://www.c-sharpcorner.com/article/working-with-sql-lite-database-in-asp-net-core-web-api
+
+# Backend References
+
+
+
+### Getting Started with EF Core
+
+https://learn.microsoft.com/en-us/ef/core/get-started/overview/first-app?tabs=netcore-cli
+
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+## Interfaces 
+
+### Tutorial: Use dependency injection in .NET
+https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection-usage
+
+### ControllerBase.Ok Method
+https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok?view=aspnetcore-8.0
+
+### FirstOrDefaultAsync() (used in GarrysItemsService)
+https://stackoverflow.com/questions/54819705/firstordefaultasync-singleordefaultasync-vs-findasync-efcore
+
+## DTOs
+https://learn.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/part-5
+
+.include(...)
+https://learn.microsoft.com/en-us/ef/core/querying/related-data/eager
+
+## Migrations:
+
+dotnet ef migrations add ChangeItemDTO
+dotnet ef database update
